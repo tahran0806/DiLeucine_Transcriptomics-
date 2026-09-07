@@ -23,11 +23,32 @@ It is the default preprocessing and normalization algorithm used by Thermo Fishe
 
 SST-RMA uses two main phases:
 1. Signal Space Transformation: This applies a GC - content correlation to the raw data based on the sequences of the probes. It scales and transforms the raw fluorescence signal.
+
 2. Robust Multi-Chip Analysis: This passes the above corrected data through normalization workflows that include:
-  - Background correction to remove noise
-  - Quantile normalization to make overall distribution of intensities identical across all sample arrays
-  - Summarization to combine individual probe values into a single final expression value for each gene or transcript.
+  - 2a. Background correction to remove noise
+      - Subtracts noise such as optical background from unwanted fluorescence and nonspecific hybridization.
+      
+  - 2b. Quantile normalization 
+      - Forces every array to have an identical distribution of intensities across all sample arrays 
+      
+  - 2c. Median Polish Summarization
+      - Collapses many probes into one value per transcript, using a robust fit across probes and arrays as individual probes misbehave
+      - Bad probes are outvoted rather than allowed to drag the summary
 
 This improves inferential capacity: 
 - The correction of fold change scores allows more accurate interpretation of true biological variations
 - The final values after applying the SST-RMA are automatically log2-transformed
+
+
+
+
+
+
+## Terms to understand
+**Probe**: A synthetic tool created by the manufacturer and attached to the physical microarray chip. This is, in most cases, an oligonucleotide that is present in thousands on a standard microarray chip that acts as `bait` to capture and bind to transcripts floating over the gene chip. They are designed using the known genetic sequence of an organism. They are engineered to be perfectly complementary to a very specific genetic target.
+
+**Probe Level**: A single gene transcript is usually too long to be captured by just one short probe. Therefore, manufacturers design a probe set (a group of 10 to 25 different probes) that all target different parts of the exact same transcript.
+
+**Transcript**: Naturally occurring RNA transcripts that are biologically transcribed in our cells from DNA. More specifically, a transcript is an actual messenger RNA (mRNA) or long non-coding RNA molecule that a cell produces when a gene is turned on (expressed). 
+
+**Transcript Level**:  "Individual signal intensities from different probes in a set are mathematically crunched down into a single, final 'transcript-level' expression value.
