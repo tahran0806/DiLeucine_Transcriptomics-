@@ -32,14 +32,35 @@ SST-RMA uses two main phases:
       - Forces every array to have an identical distribution of intensities across all sample arrays 
       
   - 2c. Median Polish Summarization
-      - Collapses many probes into one value per transcript, using a robust fit across probes and arrays as individual probes misbehave
+      - Collapses many probes into one value per transcript, using a robust fit across probes and arrays, as individual probes misbehave
       - Bad probes are outvoted rather than allowed to drag the summary
 
 This improves inferential capacity: 
 - The correction of fold change scores allows more accurate interpretation of true biological variations
 - The final values after applying the SST-RMA are automatically log2-transformed
 
+## `DiL_PCA`
+This script works on understanding the variability in the data by implementing principal component analysis plots, looking at PC1(%) and PC2(%). The data matrix is composed of 95 samples, each describing around 21,500 numbers. To visualize across such high-dimensional degrees, a principal component analysis (PCA) crunches the data such that it looks for a single direction across all the 21,500 dimensions along which samples are spread out. This is considered PC1. The second principal component, PC2(%), stands perpendicular to PC1(%), which is the greatest direction of the remaining spread in the data.
 
+The PCA plot looking at how samples are clustered by time (PRE, 3Hr post, 24Hr post) showcased:
+* PC1 (37.1%) separates 24 hr from everything else.
+* PC2 (8%) separates 3 hr downward from PRE, which clusters tightly in the upper left.
+
+### PC1: 
+PC1 is the delayed remodelling and inflammatory program. ECM (TNC, TIMP1, THBS1, SERPINE1, PRG4), mechanical stress (ANKRD1, ACTC1), and — importantly — markers of infiltrating immune cells: S100A8/S100A9 are calprotectin, expressed by neutrophils and monocytes, and CCL2 and SPP1 recruit and activate them.
+
+### PC2 
+PC2 is the acute transcriptional response. FOS, JUNB, EGR1, MYC, ATF3, NR4A1/3. ABRA (STARS), XIRP1, and CYR61 are mechanotransduction genes.
+
+
+Additionally, the PCA plot colored by condition (PLA versus DiL) showed no compartmentalization, completely intermixed. However, treatment effects in this kind of study live in coordinated changes across specific pathways, of modest size — invisible to PCA by construction
+
+Two samples sat pretty low on the PC2 scale. These were:
+
+`S03_T2_3HR_B`
+`S07_T1_PRE_A`
+
+This was noted for downstream analysis of outliers.
 
 
 
