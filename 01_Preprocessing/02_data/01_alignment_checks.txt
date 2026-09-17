@@ -1,0 +1,43 @@
+Stage 01 run: 2026-09-16 19:58:34
+
+[PASS] every column of Raw_data.txt is numeric
+expression matrix: 21448 transcript clusters x 95 arrays
+[PASS] matrix fingerprint matches the Summer 2026 ingest (12843602.47)
+[PASS] no missing values
+value range: 2.14 to 20.62, mean 6.30
+
+[PASS] targets.csv has 95 rows
+[PASS] sample_id is unique
+[PASS] array is unique
+[PASS] no missing sample metadata
+
+[PASS] every array name parses
+[PASS] well: .ARR attribute agrees with the array name
+[PASS] subject: .ARR attribute agrees with the array name
+[PASS] period: .ARR attribute agrees with the array name
+[PASS] time: .ARR attribute agrees with the array name
+[PASS] condition: .ARR attribute agrees with the array name
+
+[PASS] sheet and matrix describe the same 95 arrays
+[PASS] matrix columns now follow targets.csv
+[PASS] matrix columns are the sample ids
+
+[PASS] rebuilt grp agrees with the grp column in targets.csv
+
+--- design ---
+subjects: 16
+arrays per subject: 5 arrays x 1 subjects; 6 arrays x 15 subjects
+condition x time cell counts:
+   
+    Pre 3hr 24hr
+  B  16  16   16
+  A  15  16   16
+[PASS] every cell is n = 16 except A_Pre at n = 15
+sequence allocation: B-first = 6, A-first = 10
+condition-period association: phi = -0.242  (bias in a simple effect = 0.24 x period effect)
+
+AFFX control probesets found: 0
+carrying 21448 transcript clusters x 95 arrays forward
+
+[PASS] final alignment holds
+wrote 01_Preprocessing/02_data/01_expression.rds
